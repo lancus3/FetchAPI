@@ -5,10 +5,10 @@ var quoteUrl = "https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&fi
 function getQuote() {
   fetch(quoteUrl, { cache: "no-store" })
   fetch(prefix + quoteUrl, { cache: "no-store" })
-      .then(function(resp) {
-          return resp.json();
-      })
-      .then(createTweet);
+    .then(function (resp) {
+      return resp.json();
+    })
+    .then(createTweet);
 }
 
 function createTweet(input) {
@@ -20,24 +20,27 @@ function createTweet(input) {
   var quoteAuthor = data.title;
 
   if (!quoteAuthor.length) {
-      quoteAuthor = "Unknown author";
+    quoteAuthor = "Unknown author";
   }
   var tweetText = "Quote of the day - " + quoteText + " Author: " + quoteAuthor;
   if (tweetText.length > 140) {
     getQuote();
-}
-else {
-  var tweet = tweetLink + encodeURIComponent(tweetText);
-  document.querySelector('.quote').innerText = quoteText;
-  document.querySelector('.author').innerText = "Author: " + quoteAuthor;
-  document.querySelector('.tweet').setAttribute('href', tweet);
+  }
+  else {
+    var tweet = tweetLink + encodeURIComponent(tweetText);
+    document.querySelector('.quote').innerText = quoteText;
+    document.querySelector('.author').innerText = "Author: " + quoteAuthor;
+    document.querySelector('.tweet').setAttribute('href', tweet);
+  }
+
+  
+
+ 
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   getQuote();
-  document.querySelector('.trigger').addEventListener('click', function() {
-      getQuote();
+  document.querySelector('.trigger').addEventListener('click', function () {
+    getQuote();
   });
-});
-
-}
+}); 
